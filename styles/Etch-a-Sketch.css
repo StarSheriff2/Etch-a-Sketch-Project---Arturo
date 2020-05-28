@@ -1,0 +1,15 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.gridDiv {
+    transition: all 0.10s ease;
+}
+
+.gridDiv:hover {
+    cursor: pointer;
+}
+
+.mouseEnter {
+    background-color: red !important;
+}
