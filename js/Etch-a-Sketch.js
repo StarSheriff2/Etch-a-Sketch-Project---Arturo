@@ -4,8 +4,13 @@ const controlsDiv = document.createElement("div");
 const controlsDivStyle = controlsDiv.style;
 const clearBtn = document.createElement("button");
 const clearBtnStyle = clearBtn.style;
+const modeBtn = document.createElement("select");
+const modeBtnStyle = modeBtn.style;
+const labelModeBtn = document.createElement("label");
+const blackMode = document.createElement("option");
+const randomMode = document.createElement("option");
+const gradateMode = document.createElement("option");
 const divContainter = document.createElement("div");
-const gridDivs = divContainter.childNodes;
 let gridSize = 16;
 
 bodyStyle = body.style;
@@ -15,15 +20,25 @@ topDiv.textContent = "Etch a Sketch";
 topDivStyle.fontSize = "50px";
 topDivStyle.lineHeight = "80px";
 topDivStyle.height = "80px";
-topDivStyle.backgroundColor = "gray";
+topDivStyle.backgroundColor = "#e66875";
 topDivStyle.textAlign = "center";
 body.appendChild(topDiv);
-controlsDivStyle.height = "70px";
 body.appendChild(controlsDiv);
-clearBtn.textContent = "Clear";
-clearBtnStyle.display = "inline-block";
-clearBtnStyle.margin = "0 auto";
+clearBtn.textContent = "Clear Canvas";
 controlsDiv.appendChild(clearBtn);
+labelModeBtn.textContent = "Sketching Mode";
+labelModeBtn.setAttribute("for", "dropdown");
+controlsDiv.appendChild(labelModeBtn);
+modeBtn.setAttribute("id", "dropdown");
+controlsDiv.appendChild(modeBtn);
+blackMode.textContent = "Black";
+blackMode.setAttribute("checked", "checked");
+modeBtn.appendChild(blackMode);
+randomMode.textContent = "Random Color Brush";
+modeBtn.appendChild(randomMode);
+gradateMode.textContent = "Grayscale";
+modeBtn.appendChild(gradateMode);
+controlsDivStyle.textAlign = "center";
 divStyle = divContainter.style;
 divStyle.width = "500px";
 divStyle.height = "500px";
@@ -32,7 +47,12 @@ divStyle.setProperty('display','grid');
 body.appendChild(divContainter);
 
 constructGrid(gridSize);
-etch();
+createCanvas();
+
+function createCanvas() {
+    const gridDivs = Array.from(divContainter.childNodes);
+    gridDivs.forEach(div => div.addEventListener("mouseenter", colorGrid));
+}
 
 function constructGrid(gridSize) {
     divStyle.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -41,34 +61,57 @@ function constructGrid(gridSize) {
         console.log(gridSize**2);
         const gridDiv = document.createElement("div");
         gridDivStl = gridDiv.style;
-        gridDivStl.backgroundColor = "green";
+        gridDivStl.backgroundColor = "rgb(255,255,255)";
         gridDiv.classList.add("gridDiv");
         divContainter.appendChild(gridDiv);
     }
 }
+        
+function colorGrid(e) {
+    const colorMode = checkColorMode();
 
-function etch() {
-    gridDivs.forEach((div) => {
-        div.addEventListener("mouseenter", (e) => {
-            console.log(e);
-            e.target.classList.add("mouseEnter");
-        });
-    });
+    if (colorMode == 0) {
+        e.target.style.backgroundColor = "rgb(0,0,0)";
+    }
+    else if (colorMode == 1) {
+        e.target.style.backgroundColor = `${generateRGB()}`;
+    }
+    else {
+        e.target.style.backgroundColor = (`${gradateToBlack(e.target.style.backgroundColor)}`);
+    }
+}       
+
+function checkColorMode() {
+    return modeBtn.options.selectedIndex;
+}
+
+function generateRGB() {
+    return `rgb(${generateValue()},${generateValue()},${generateValue()})`;
+    function generateValue() {
+        return Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+    }
+}
+
+function gradateToBlack(lastPass) {
+    const RGBValues = lastPass.slice(4, lastPass.lastIndexOf(")"));
+    let RGBArray = RGBValues.split(",");
+    RGBArray.forEach((value, index, arr) => {
+        arr[index] = value - 25.5;
+            }   
+        );
+    return `rgb(${RGBArray.toString()})`;
 }
 
 clearBtn.onclick = (_) => {
-    const coloredDivs = document.querySelectorAll(".mouseEnter");
-    coloredDivs.forEach((div) => {
-        div.classList.remove("mouseEnter");
-    });
-    console.log(gridDivs);
+    clearCanvas();
+    constructGrid(gridSize = prompt("How many squares per side do you want?", "16"));
+    createCanvas();
+}
+
+function clearCanvas() {
     var child = divContainter.lastElementChild;
     while (child) {
         divContainter.removeChild(child);
-        console.log("div removed");
         child = divContainter.lastElementChild;
     }
-    
-    constructGrid(gridSize = prompt("How many squares per side do you want?", "64"));
-    etch();
 }
