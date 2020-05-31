@@ -47,12 +47,7 @@ divStyle.setProperty('display','grid');
 body.appendChild(divContainter);
 
 constructGrid(gridSize);
-createCanvas();
-
-function createCanvas() {
-    const gridDivs = Array.from(divContainter.childNodes);
-    gridDivs.forEach(div => div.addEventListener("mouseenter", colorGrid));
-}
+activateBrush();
 
 function constructGrid(gridSize) {
     divStyle.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -66,24 +61,23 @@ function constructGrid(gridSize) {
         divContainter.appendChild(gridDiv);
     }
 }
+
+function activateBrush() {
+    const gridDivs = Array.from(divContainter.childNodes);
+    gridDivs.forEach(div => div.addEventListener("mouseenter", colorGrid));
+}
         
 function colorGrid(e) {
-    const colorMode = checkColorMode();
-
-    if (colorMode == 0) {
+    if (modeBtn.options.selectedIndex == 0) {
         e.target.style.backgroundColor = "rgb(0,0,0)";
     }
-    else if (colorMode == 1) {
+    else if (modeBtn.options.selectedIndex == 1) {
         e.target.style.backgroundColor = `${generateRGB()}`;
     }
     else {
         e.target.style.backgroundColor = (`${gradateToBlack(e.target.style.backgroundColor)}`);
     }
 }       
-
-function checkColorMode() {
-    return modeBtn.options.selectedIndex;
-}
 
 function generateRGB() {
     return `rgb(${generateValue()},${generateValue()},${generateValue()})`;
@@ -105,7 +99,7 @@ function gradateToBlack(lastPass) {
 clearBtn.onclick = (_) => {
     clearCanvas();
     constructGrid(gridSize = prompt("How many squares per side do you want?", "16"));
-    createCanvas();
+    activateBrush();
 }
 
 function clearCanvas() {
