@@ -2,3 +2,4 @@
 This is part of the Odin Project's Web Development 101 course on Javascript
 
 This is a browser version of something between a sketchpad and an Etch-A-Sketch.
+All extra features included: random color brush and grayscale brush
