@@ -98,7 +98,9 @@ function gradateToBlack(lastPass) {
 
 clearBtn.onclick = (_) => {
     clearCanvas();
-    constructGrid(gridSize = prompt("How many squares per side do you want?", "16"));
+    constructGrid(gridSize = prompt(
+        "How many squares per side do you want?", "16"
+        ));
     activateBrush();
 }
 
