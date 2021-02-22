@@ -9,7 +9,7 @@ This is a browser version of something between a sketchpad and an Etch-A-Sketch.
 # Screenshot
 ![screenshot](./app_screenshot.png)
 
-This virtual sketch board was built entirely from sractch. I used JS, HTML and CSS to build it. You can also change the size of your canvas by clicking on **clear canvas**.
+This virtual sketch board was built entirely from sractch. I used JS, HTML and CSS to build it. You can also change the pixel density in your canvas by clicking on **clear canvas**.
 
 ## Built With
 - Javascript, HTML, and CSS
@@ -36,7 +36,7 @@ To get a local copy up and running follow these simple example steps.
 1. To run the program, go to the projects's root directory *(the directory where you cloned the remote repository or extracted the project files)* and open the **index.html** file. This will open the sketch-board app in your default browser
 2. To use the app use your mouse to hover over the board and start painting
 3. Yo change the paintbrush style click on **sketching mode** and select the mode you want
-4. If you want to make the size of the paintbrush smaller, you can change the pixel size of the canvas by clicking on *clear canvas* and writing any number between 1 and 200.
+4. If you want to increase or decrease the pixel density of your canvas click on *clear canvas* and writing any number between 1 and 200.
 
 ## Authors
 
