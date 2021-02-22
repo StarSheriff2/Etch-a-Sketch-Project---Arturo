@@ -36,7 +36,7 @@ To get a local copy up and running follow these simple example steps.
 1. To run the program, go to the projects's root directory *(the directory where you cloned the remote repository or extracted the project files)* and open the **index.html** file. This will open the sketch-board app in your default browser
 2. To use the app use your mouse to hover over the board and start painting
 3. To change the paintbrush style click on **sketching mode** and select the mode you want
-4. If you want to increase or decrease the pixel density of your canvas click on *clear canvas* and writing any number between 1 and 200.
+4. If you want to increase or decrease the pixel density of your canvas, click on *clear canvas* and type any number between 1 and 200
 
 ## Authors
 
