@@ -43,7 +43,7 @@ divStyle = divContainter.style;
 divStyle.width = "500px";
 divStyle.height = "500px";
 divStyle.margin = "0 auto";
-divStyle.setProperty('display','grid');
+divStyle.setProperty('display', 'grid');
 body.appendChild(divContainter);
 
 constructGrid(gridSize);
@@ -52,8 +52,8 @@ activateBrush();
 function constructGrid(gridSize) {
     divStyle.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     divStyle.gridTemplateRows = `repeat(${gridSize}, 1fr`;
-    for (i = 1; i <= (gridSize**2); i++) {
-        console.log(gridSize**2);
+    for (i = 1; i <= (gridSize ** 2); i++) {
+        console.log(gridSize ** 2);
         const gridDiv = document.createElement("div");
         gridDivStl = gridDiv.style;
         gridDivStl.backgroundColor = "rgb(255,255,255)";
@@ -66,21 +66,20 @@ function activateBrush() {
     const gridDivs = Array.from(divContainter.childNodes);
     gridDivs.forEach(div => div.addEventListener("mouseenter", colorGrid));
 }
-        
+
 function colorGrid(e) {
     if (modeBtn.options.selectedIndex == 0) {
         e.target.style.backgroundColor = "rgb(0,0,0)";
-    }
-    else if (modeBtn.options.selectedIndex == 1) {
+    } else if (modeBtn.options.selectedIndex == 1) {
         e.target.style.backgroundColor = `${generateRGB()}`;
-    }
-    else {
+    } else {
         e.target.style.backgroundColor = (`${gradateToBlack(e.target.style.backgroundColor)}`);
     }
-}       
+}
 
 function generateRGB() {
     return `rgb(${generateValue()},${generateValue()},${generateValue()})`;
+
     function generateValue() {
         return Math.floor(Math.random() * (255 - 0 + 1)) + 0;
     }
@@ -91,8 +90,7 @@ function gradateToBlack(lastPass) {
     let RGBArray = RGBValues.split(",");
     RGBArray.forEach((value, index, arr) => {
         arr[index] = value - 25.5;
-            }   
-        );
+    });
     return `rgb(${RGBArray.toString()})`;
 }
 
@@ -100,7 +98,7 @@ clearBtn.onclick = (_) => {
     clearCanvas();
     constructGrid(gridSize = prompt(
         "How many squares per side do you want?", "16"
-        ));
+    ));
     activateBrush();
 }
 
